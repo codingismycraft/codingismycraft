@@ -1,6 +1,6 @@
 // A program to count blanks, tabs and newlines.
-// to build: gcc ex_01_08.c -o ex
-// to test: cat ex_01_08.c | ex
+// to build: gcc ex_01_08.c -o ex_01_08
+// to test: cat ex_01_08.c | ex_01_08
 #include <stdio.h>
 
 int main() {
