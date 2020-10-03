@@ -1,1 +1,2 @@
-This repo contains solutions to common algorithmic problems.
+Contains solutions to common algorithmic problems.
+
