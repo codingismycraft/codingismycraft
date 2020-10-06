@@ -6,7 +6,7 @@ to test: cat text | ex_01_20
 */
 #include <stdio.h>
 
-#define TAB_LENGTH 18
+#define TAB_LENGTH 8
 
 
 int main() {
@@ -16,7 +16,7 @@ int main() {
 
     while( (c=getchar()) != EOF ){
         if (c == '\t') {
-          j =  TAB_LENGTH - length;
+          j =  TAB_LENGTH - (length % TAB_LENGTH);
           for(i = 0; i <j; ++i)
             putchar(' ');
             length = 0;
