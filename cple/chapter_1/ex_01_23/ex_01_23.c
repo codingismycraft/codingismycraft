@@ -19,7 +19,7 @@ to test: cat test.c | ex_01_23
 
 int state = IN_CODE;
 
-int get_next_char(int c1){
+int process_next_char(int c1){
     int c2;
     if (c1 == EOF)
         return EOF;
@@ -84,11 +84,7 @@ int get_next_char(int c1){
 int main(void)
 {
     int c;
-
     c = getchar();
-
-    while ((c = get_next_char(c)) != EOF) {
-
-    }
+    while ((c = process_next_char(c)) != EOF);
     return 0;
 }
