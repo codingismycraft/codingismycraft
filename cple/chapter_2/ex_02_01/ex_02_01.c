@@ -18,16 +18,6 @@
 #include <limits.h>
 #include <float.h>
 
-void bin(signed char n) 
-{ 
-    /* step 1 */
-    if (n > 1) 
-        bin(n/2); 
-  
-    /* step 2 */
-    printf("%d", n % 2); 
-} 
-
 int main(){
     printf("signed char %i to %i \n", SCHAR_MIN, SCHAR_MAX);
     printf("unsigned char %i to %i \n", 0, UCHAR_MAX);
