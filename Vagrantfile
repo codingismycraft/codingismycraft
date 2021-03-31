@@ -5,7 +5,7 @@ sudo pip3 install nose
 SCRIPT
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "bento/ubuntu-19.10"
+  config.vm.box = "bento/ubuntu-20.04"
   config.vm.provision "shell", inline: $script
 end
 
