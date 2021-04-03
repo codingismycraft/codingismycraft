@@ -1,4 +1,6 @@
 import faker
+import os
+import sys
 
 MAX_TEXT_SIZE = 70
 
@@ -13,18 +15,25 @@ def make_file(filename, count):
                 print(index)
 
 
-def check_file_sorted(filename):
-    previous = None
-    with open(filename) as f:
-        for line in f.readlines():
-            if previous and previous > line:
-                return False
-            previous = line
-    return True
-
-
-
-FILENAME = 'large.txt'
 if __name__ == '__main__':
-    #make_file('large.txt', 20000)
-    print(check_file_sorted('sorted.txt'))
+    filename, size = None, None
+    try:
+        filename = sys.argv[1]
+        size = int(sys.argv[2])
+    except:
+        print('You need to pass the filename to create and its size')
+        exit(-1)
+    make_file(filename, size)
+    sorted_file_size = size / 500
+    if sorted_file_size < 100:
+        sorted_file_size = 100
+
+    os.system('cd ./sorted_files')
+    os.system('rm *')
+    os.system('cd ..')
+    command = f'split --verbose -l{sorted_file_size} {filename} ./sorted_files/sorted_'
+
+
+    os.system(command)
+    # cd sorted_files
+    # split --verbose -l70000  ../very_large.txt sorted_

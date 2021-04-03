@@ -10,6 +10,11 @@ class FileWrapper:
     def __lt__(self, other):
         return self._current_line < other._current_line
 
+    def __le__(self, other):
+        return self._current_line <= other._current_line
+
+
+
     def __repr__(self):
         return self._filename
 
