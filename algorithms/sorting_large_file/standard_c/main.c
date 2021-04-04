@@ -1,21 +1,16 @@
 #include <assert.h>
 #include <dirent.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 
 #define FALSE 0
 #define TRUE 1
-
-
 #define MAX_STRING_SIZE 100
 #define MAX_HEAP_SIZE 1024
 #define SORTED_FILES_PATH "/home/john/repos/codingismycraft/algorithms/sorting_large_file/sorted_files"
-#define MAX_NUM_FILE_WRAPPERS 600
-
-int ARRAY_EMPTY = -388888;
-int SUCCESS = -452222;
+#define OUTPUT_FILE "/home/john/repos/codingismycraft/algorithms/sorting_large_file/solution/sorted_using_c.txt"
 
 typedef struct FileWrapper_ {
     FILE *fp;
@@ -29,7 +24,6 @@ FileWrapper *HEAP[MAX_HEAP_SIZE];
 int heap_size = 0;
 
 void push(FileWrapper *fw);
-
 int starts_with(const char *a, const char *b);
 
 void file_wrapper_init(FileWrapper *pfw, const char *pszFilename) {
@@ -84,11 +78,11 @@ int get_parent_index(int index) {
     }
 }
 
-int get_left_index(int index) {
+inline int get_left_index(int index) {
     return index * 2 + 1;
 }
 
-int get_right_index(int index) {
+inline int get_right_index(int index) {
     return 2 * (index + 1);
 }
 
@@ -104,9 +98,9 @@ FileWrapper *pop() {
     int current_index = 0;
     int index_to_check = 0;
 
-    if (heap_size <= 0) {
+    if (heap_size <= 0)
         return NULL;
-    }
+
     FileWrapper *p_return_value = HEAP[0];
 
     if (heap_size <= 1) {
@@ -167,12 +161,24 @@ int starts_with(const char *a, const char *b) {
 
 int main() {
     heap_populate();
+    FILE* fp = fopen(OUTPUT_FILE, "w");
     FileWrapper *p_fw;
+    int counter = 0;
+    time_t started = time(0);
+
     while ((p_fw = pop()) != NULL) {
-        printf("%s\n", p_fw->current_line);
+        fprintf (fp, "%s\n", p_fw->current_line);
+        ++counter;
+        if (counter % 100000 == 0){
+            printf("%d\n", counter);
+        }
         if (file_wrapper_read_next_line(p_fw)) {
             push(p_fw);
         }
     }
+    time_t finished = time(0);
+    double seconds=difftime(finished,started);
+    printf("Duration: %f\n" , seconds);
+
     return 0;
 }
