@@ -2,14 +2,16 @@
 
 import datetime
 import glob
-import heap as heap_lib
+
+import heapq
+
 
 SORTED_FILENAME_MASK = './sorted_files/sorted'
 OUTPUT_FILE = './solution/sorted.txt'
 OUTPUT_FILE_FROM_MERGE = './solution/sorted_with_merge.txt'
 
-MinHeap = heap_lib.MinHeap
 
+HEAP = []
 
 class FileWrapper:
     def __init__(self, filename):
@@ -51,23 +53,23 @@ def check_sorted_subfiles():
 
 def merge_using_heap():
     print("Sorting using heap")
-    heap = MinHeap()
+
     mask = f"{SORTED_FILENAME_MASK}_*"
     for filename in glob.glob(mask):
-        heap.add(FileWrapper(filename))
+        heapq.heappush(HEAP, FileWrapper(filename))
     started = datetime.datetime.now()
     with open(OUTPUT_FILE_FROM_MERGE, 'w') as output:
         counter = 0
-        while len(heap) > 0:
+        while len(HEAP) > 0:
             counter += 1
             if counter % 100000 == 0:
                 print(counter)
-            first_wrapper = heap.pop()
+            first_wrapper = heapq.heappop(HEAP)
             line = first_wrapper.current_line
             output.write(line)
             output.write('\n')
             if not first_wrapper.reached_end:
-                heap.add(first_wrapper)
+                heapq.heappush(HEAP, first_wrapper)
     finished = datetime.datetime.now()
     duration = (finished - started).total_seconds()
     print(f'duration: {duration}')
