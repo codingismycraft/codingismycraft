@@ -15,9 +15,9 @@ import faker
 import os
 
 SORTED_FILE_NAME_MASK = "./sorted_files/sorted_{index}".format
-NUMBER_OF_LINES_PER_FILE = 10000
+NUMBER_OF_LINES_PER_FILE = 1000
 MAX_LINE_LENGTH = 70
-NUMBER_OF_FILES_TO_CREATE = 500
+NUMBER_OF_FILES_TO_CREATE = 200
 
 fake_gen = faker.Faker()
 

@@ -78,8 +78,7 @@ class Heap(abc.ABC):
 
         :param int index: The index to process.
         """
-        parent_index = self._find_parent(index)
-
+        parent_index = (index - 1) >> 1 if index > 0 else -1
         if parent_index >= 0:
             if self._compare(self._heap[index], self._heap[parent_index]):
                 self._swap(parent_index, index)
@@ -96,19 +95,6 @@ class Heap(abc.ABC):
         right = 2 * (index + 1)
         return left, right
 
-    @classmethod
-    def _find_parent(cls, index):
-        """Returns the parent index.
-
-        :param int index: The index to return its parent.
-        :rtype: int
-        """
-        if index <= 0:
-            return -1
-        elif index % 2 == 0:
-            return index // 2 - 1
-        else:
-            return index // 2
 
     @abc.abstractmethod
     def _compare(self, v1, v2):

@@ -8,7 +8,7 @@ import heapq
 
 SORTED_FILENAME_MASK = './sorted_files/sorted'
 OUTPUT_FILE = './solution/sorted.txt'
-OUTPUT_FILE_FROM_MERGE = './solution/sorted_with_merge.txt'
+OUTPUT_FILE_FROM_MERGE = './solution/sorted_with_buildin_heap.txt'
 
 
 HEAP = []
