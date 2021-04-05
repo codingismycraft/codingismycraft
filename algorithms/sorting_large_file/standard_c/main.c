@@ -78,11 +78,11 @@ int get_parent_index(int index) {
     }
 }
 
-inline int get_left_index(int index) {
+int get_left_index(int index) {
     return index * 2 + 1;
 }
 
-inline int get_right_index(int index) {
+int get_right_index(int index) {
     return 2 * (index + 1);
 }
 
