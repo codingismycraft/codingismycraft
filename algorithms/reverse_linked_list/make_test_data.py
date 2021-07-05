@@ -29,4 +29,4 @@ def make_data(N):
 
 
 if __name__ == '__main__':
-    make_data(4000000)
+    make_data(1000)
