@@ -1,10 +1,14 @@
-import unittest
+"""Tests the heap impl."""
 
+import unittest
 import heap_impl
 
 
 class TestHeap(unittest.TestCase):
+    """Tests the heap impl."""
+
     def test_push(self):
+        """Tests the push function."""
         heap = []
         input = [120, 10, 5, 150, 1, 3]
         for i in input:
@@ -13,6 +17,7 @@ class TestHeap(unittest.TestCase):
         self.assertListEqual(heap, expected_heap)
 
     def test_pop(self):
+        """Tests the pop function."""
         heap = []
         input = [120, 10, 5, 150, 7, 1, 3]
         for i in input:
