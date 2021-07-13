@@ -36,10 +36,29 @@ class TestKnapsack(unittest.TestCase):
         values = [17, 12, 6, 12, 2]
         max_capacity = 10
         expected_value = 26
+
+        retrieved_value, items = knapsack.solve_bags(weights, values, max_capacity)
+
         self.assertEqual(
             expected_value,
-            knapsack.solve_bags(weights, values, max_capacity)
+            retrieved_value
         )
+
+        self.assertEqual(len(items),  3)
+
+        print(items)
+
+
+        self.assertEqual(items[0].v, 2)
+        self.assertEqual(items[0].w, 1)
+
+        self.assertEqual(items[1].v, 12)
+        self.assertEqual(items[1].w, 4)
+
+        self.assertEqual(items[2].v, 12)
+        self.assertEqual(items[2].w, 5)
+
+
 
     def test2(self):
         weights = [8, 4, 3]
@@ -70,6 +89,7 @@ class TestKnapsack(unittest.TestCase):
             expected_value,
             knapsack.solve_bags(weights, values, max_capacity)
         )
+
 
 
 

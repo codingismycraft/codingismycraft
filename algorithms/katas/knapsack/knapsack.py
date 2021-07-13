@@ -4,7 +4,7 @@ class Item:
         self.v = v
 
     def __repr__(self):
-        return f'Item({self.w, self.v})'
+        return f'Item(weight={self.w}, value={self.v})'
 
 
 def solve_bags(weights, values, max_capacity):
@@ -31,4 +31,40 @@ def solve_bags(weights, values, max_capacity):
                 v1 = items[row_index].v + bags[row_index-1][leftover_capacity]
                 bags[row_index][col_index] = max(v1, bags[row_index-1][col_index])
 
-    return bags[-1][-1]
+    selected_items = _get_selected_items(bags, items)
+
+    return bags[-1][-1], selected_items
+
+def _get_selected_items(bags, items):
+    if not bags:
+        return []
+
+    number_of_rows = len(bags)
+    number_of_cols = len(bags[0])
+
+    value = bags[number_of_rows-1][number_of_cols-1]
+
+    row_index = number_of_rows - 1
+    col_index = number_of_cols - 1
+
+    selected_indexes = []
+    total_selected_weight = 0
+    while row_index > 0 and total_selected_weight < value:
+        v1 = bags[row_index-1][col_index]
+        if v1 == bags[row_index][col_index]:
+            row_index -= 1
+        else:
+            total_selected_weight += items[row_index].w
+            selected_indexes.append(row_index)
+            col_index = col_index - items[row_index].w
+            row_index -= 1
+    selected_items = []
+    for i in sorted(selected_indexes):
+        selected_items.append(items[i])
+    return selected_items
+
+
+
+
+
+
