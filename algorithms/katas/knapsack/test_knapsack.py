@@ -67,7 +67,7 @@ class TestKnapsack(unittest.TestCase):
         expected_value = 18
         self.assertEqual(
             expected_value,
-            knapsack.solve_bags(weights, values, max_capacity)
+            knapsack.solve_bags(weights, values, max_capacity)[0]
         )
 
     def test3(self):
@@ -77,7 +77,7 @@ class TestKnapsack(unittest.TestCase):
         expected_value = 13
         self.assertEqual(
             expected_value,
-            knapsack.solve_bags(weights, values, max_capacity)
+            knapsack.solve_bags(weights, values, max_capacity)[0]
         )
 
     def test4(self):
@@ -87,7 +87,7 @@ class TestKnapsack(unittest.TestCase):
         expected_value = 26
         self.assertEqual(
             expected_value,
-            knapsack.solve_bags(weights, values, max_capacity)
+            knapsack.solve_bags(weights, values, max_capacity)[0]
         )
 
 
