@@ -48,11 +48,12 @@ class Trie:
             return self._children[first_letter].exists(remainder)
 
     def get_all_words(self, prefix=''):
-        """Gets all the words contained in the Trie instance.
+        """Gets all the dictionary contained in the Trie instance.
 
         :param str prefix: The prefix to add in each found word.
 
-        :return: A list of all the available words for the given Trie (node).
+        :return: A list of all the available dictionary for the given
+            Trie (node).
         :rtype: list [str]
         """
         words = []
