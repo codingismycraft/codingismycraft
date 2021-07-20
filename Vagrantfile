@@ -3,6 +3,10 @@ sudo apt update
 sudo apt install python3-pip -y
 sudo pip3 install nose
 sudo pip3 install Faker==1.0.1
+sudo pip3 install pandas
+sudo pip3 install matplotlib
+sudo pip3 install numpy
+sudo pip3 install networkx
 SCRIPT
 
 Vagrant.configure("2") do |config|
