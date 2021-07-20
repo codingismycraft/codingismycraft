@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import networkx as nx
 
 
-def display_graph(data, path=None):
+def display_graph(data, path=None, edgewidth=8, node_size=500, alpha=1.):
     """Displays the passed in graph and path."""
     edges = []
     for k, v in data.items():
@@ -15,7 +15,7 @@ def display_graph(data, path=None):
     pos = nx.spring_layout(G)  # positions for all nodes
 
     # nodes
-    options = {"node_size": 500, "alpha": 0.8}
+    options = {"node_size": node_size, "alpha": alpha}
     nx.draw_networkx_nodes(
         G,
         pos,
@@ -25,13 +25,13 @@ def display_graph(data, path=None):
     )
 
     # edges
-    nx.draw_networkx_edges(G, pos, width=1.0, alpha=0.5)
+    nx.draw_networkx_edges(G, pos, width=1.0, alpha=alpha)
     nx.draw_networkx_edges(
         G,
         pos,
         edgelist=edges,
-        width=8,
-        alpha=0.5,
+        width=edgewidth,
+        alpha=alpha,
         edge_color="b",
     )
 
@@ -40,8 +40,8 @@ def display_graph(data, path=None):
             G,
             pos,
             edgelist=path,
-            width=8,
-            alpha=0.5,
+            width=edgewidth,
+            alpha=alpha,
             edge_color="r",
         )
 

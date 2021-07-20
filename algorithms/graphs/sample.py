@@ -19,4 +19,10 @@ data = {
 if __name__ == '__main__':
     g = Graph(data)
     retrieved = bfs.bsf(g, '9', '3')
-    utils.display_graph(g.get_as_dict(), retrieved)
+    utils.display_graph(
+        g.get_as_dict(),
+        retrieved,
+        edgewidth=4,
+        node_size=800,
+        alpha=1
+    )
