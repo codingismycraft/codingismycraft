@@ -2,7 +2,7 @@
 
 import unittest
 
-from .. import bfs
+from .. import breadth_fisrt_search as bfs
 from .. import graph
 from .. import utils
 
