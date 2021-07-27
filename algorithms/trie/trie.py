@@ -2,7 +2,17 @@
 
 
 class Trie:
+    """A Trie node holding its descendants in a dictionary.
+
+    :ivar dict _children: Dict from a single character to a Trie node.
+    :ivar bool _end_of_word: True if the Trie instance denotes a word end.
+    """
+
+    _children = None
+    _end_of_word = None
+
     def __init__(self):
+        """Initializer."""
         self._children = {}
         self._end_of_word = False
 
@@ -11,9 +21,15 @@ class Trie:
                f'eow: {self._end_of_word}'
 
     def set_end_of_word(self):
+        """Marks the instance as ending of word."""
         self._end_of_word = True
 
     def is_end_of_word(self):
+        """Checks is the instance is end of a word.
+
+        :return: True if the instance is end of a word.
+        :rtype: bool
+        """
         return self._end_of_word
 
     def add(self, word):
@@ -43,7 +59,7 @@ class Trie:
             return False
         else:
             if not remainder:
-                return self._children[first_letter]._end_of_word
+                return self._children[first_letter].is_end_of_word()
 
             return self._children[first_letter].exists(remainder)
 
@@ -82,8 +98,14 @@ class Trie:
         else:
             return self._children[first_letter].search(remainder)
 
-
     def get_suggestions(self, prefix):
+        """Gets the possible suggestions for the passed in prefix.
+
+        :param str prefix: The prefix to look up.
+
+        :return: A list of matching strings for the passed in prefix.
+        :rtype: list [str]
+        """
         parent = self.search(prefix)
         if not parent:
             return []
@@ -93,10 +115,3 @@ class Trie:
             suggestions.append(prefix + word)
 
         return suggestions
-
-
-
-
-
-
-

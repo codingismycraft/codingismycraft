@@ -1,3 +1,5 @@
+"""Tests the knapsack module."""
+
 import unittest
 
 import knapsack
@@ -27,40 +29,32 @@ TESTING_DATA = [
 ]
 
 
-
-
 class TestKnapsack(unittest.TestCase):
+    """Tests the knapsack module."""
 
-    def test1(self):
+    def test_knapsack_solution(self):
+        """Tests the full output of the solve bags."""
         weights = [8, 4, 3, 5, 1]
         values = [17, 12, 6, 12, 2]
         max_capacity = 10
         expected_value = 26
 
-        retrieved_value, items = knapsack.solve_bags(weights, values, max_capacity)
+        retrieved_value, items = knapsack.solve_bags(weights, values,
+                                                     max_capacity)
 
         self.assertEqual(
             expected_value,
             retrieved_value
         )
 
-        self.assertEqual(len(items),  3)
-
-        print(items)
-
-
+        self.assertEqual(len(items), 3)
         self.assertEqual(items[0].v, 2)
         self.assertEqual(items[0].w, 1)
-
         self.assertEqual(items[1].v, 12)
         self.assertEqual(items[1].w, 4)
-
         self.assertEqual(items[2].v, 12)
         self.assertEqual(items[2].w, 5)
 
-
-
-    def test2(self):
         weights = [8, 4, 3]
         values = [17, 12, 6]
         max_capacity = 10
@@ -70,7 +64,6 @@ class TestKnapsack(unittest.TestCase):
             knapsack.solve_bags(weights, values, max_capacity)[0]
         )
 
-    def test3(self):
         weights = [1, 3, 4, 5, 2]
         values = [1, 4, 5, 7, 4]
         max_capacity = 9
@@ -80,7 +73,6 @@ class TestKnapsack(unittest.TestCase):
             knapsack.solve_bags(weights, values, max_capacity)[0]
         )
 
-    def test4(self):
         weights = [8, 4, 3, 5, 1]
         values = [17, 12, 6, 12, 2]
         max_capacity = 10
@@ -89,8 +81,6 @@ class TestKnapsack(unittest.TestCase):
             expected_value,
             knapsack.solve_bags(weights, values, max_capacity)[0]
         )
-
-
 
 
 if __name__ == '__main__':
