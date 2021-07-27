@@ -28,7 +28,6 @@ data = {
 }
 
 
-
 def make_data():
     nodes = [str(i) for i in range(1, 16)]
 

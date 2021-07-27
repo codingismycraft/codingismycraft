@@ -4,7 +4,6 @@ import unittest
 
 from .. import depth_first_search as dfs
 from .. import graph
-from .. import utils
 
 # Aliases.
 Graph = graph.Graph
@@ -29,11 +28,7 @@ class TestDepthFirstSearch(unittest.TestCase):
         visited, path = dfs.dfs(g.get_as_dict(), '2')
         print(visited)
         print(path)
-        if set(visited) != set(data.keys()):
-            print(visited)
-            print("error")
-            print(data)
-
+        self.assertSetEqual(set(visited), set(data.keys()))
 
     def test_find_path(self):
         """Tests Depth First Search."""
@@ -47,8 +42,8 @@ class TestDepthFirstSearch(unittest.TestCase):
         }
 
         g = Graph(data)
-        retrieved = dfs.find_path(g.get_as_dict(), '2', '5')
-        print(retrieved)
+        _, path = dfs.dfs(g.get_as_dict(), '2', '5')
+        print(path)
 
 
 if __name__ == '__main__':

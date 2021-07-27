@@ -1,3 +1,5 @@
+"""Finds the path in a maze."""
+
 import graph
 import breadth_fisrt_search
 import depth_first_search
@@ -69,19 +71,12 @@ def make_graph(matrix):
 
 
 g = make_graph(_GRAPH_MATRIX)
-for k, v in g.items():
-    print(k, v)
 
-print("{")
-for row, item in g.items():
-    print(f"    '{row}':", item, ",")
-print("}")
 
-# Aliases.
 Graph = graph.Graph(g)
 print("using breadth first search")
 retrieved = breadth_fisrt_search.bsf(Graph, "0:7", "7:0")
 path = [x[0] for x in retrieved]
 print(path)
 print("using depth first search")
-print(depth_first_search.find_path(Graph.get_as_dict(), "7:0", "0:7"))
+print(depth_first_search.dfs(Graph.get_as_dict(), "7:0", "0:7"))
