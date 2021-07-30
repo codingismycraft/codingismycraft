@@ -2,8 +2,8 @@
 
 import unittest
 
-from .. import depth_first_search as dfs
-from .. import graph
+import depth_first_search as dfs
+import graph
 
 # Aliases.
 Graph = graph.Graph

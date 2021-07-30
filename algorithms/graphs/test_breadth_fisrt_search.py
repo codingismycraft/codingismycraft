@@ -2,9 +2,9 @@
 
 import unittest
 
-from .. import breadth_fisrt_search as bfs
-from .. import graph
-from .. import utils
+import breadth_fisrt_search as bfs
+import graph
+import utils
 
 # Aliases.
 Graph = graph.Graph

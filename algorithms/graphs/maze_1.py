@@ -79,4 +79,4 @@ retrieved = breadth_fisrt_search.bsf(Graph, "0:7", "7:0")
 path = [x[0] for x in retrieved]
 print(path)
 print("using depth first search")
-print(depth_first_search.dfs(Graph.get_as_dict(), "7:0", "0:7"))
+print(depth_first_search.dfs(Graph.get_as_dict(), "7:0", "0:7")[1])
