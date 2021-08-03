@@ -1,5 +1,16 @@
+"""Implements the dijkstra's algorithm."""
+
 def evaluate(graph, starting_node):
-    distance_from_origin = {k: 9999999 for k in graph}
+    """Finds the shortest paths.
+
+    :param dict graph: The weighted graph as an adjacent list.
+    :param starting_node: The starting node.
+
+    :return: A dict holding all the nodes of the graph pointing to
+    their shortest distances from the starting node.
+    :rtype dict.
+    """
+    distance_from_origin = {k: float('inf') for k in graph}
     distance_from_origin[starting_node] = 0
     queue = [starting_node]
     visited = []
