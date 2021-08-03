@@ -3,11 +3,7 @@
 import unittest
 
 import breadth_fisrt_search as bfs
-import graph
-import utils
 
-# Aliases.
-Graph = graph.Graph
 
 
 class TestGraph(unittest.TestCase):
@@ -23,11 +19,24 @@ class TestGraph(unittest.TestCase):
             '4': ['8'],
             '8': []
         }
-        expected = [('8', '7'), ('7', '5')]
-        g = Graph(data)
-        retrieved = bfs.bsf(g, '5', '8')
+        expected = ['5', '7', '8']
+        retrieved = bfs.bsf(data, '5', '8')
         self.assertListEqual(expected, retrieved)
-        utils.display_graph(g.get_as_dict(), retrieved)
+
+    def test_bsf_example_1(self):
+        """Tests example 1."""
+        data = {
+            '1': ['2', '3'],
+            '2': ['1', '4'],
+            '3': ['1', '4'],
+            '4': ['2', '5'],
+            '5': ['4'],
+            '6': ['2', '4']
+        }
+        expected = ['1', '2', '4', '5']
+        retrieved = bfs.bsf(data, '1', '5')
+        self.assertListEqual(expected, retrieved)
+
 
 
 if __name__ == '__main__':
