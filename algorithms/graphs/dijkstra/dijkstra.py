@@ -16,11 +16,13 @@ def evaluate(graph, starting_node):
     visited = []
     while queue:
         current_node = queue.pop(0)
+        print(current_node)
         if current_node not in visited:
             for child, distance in graph[current_node]:
                 d1 = distance + distance_from_origin[current_node]
                 d2 = distance_from_origin[child]
                 distance_from_origin[child] = min(d1, d2)
-                queue.append(child)
+                if child not in visited and child not in queue:
+                    queue.append(child)
         visited.append(current_node)
     return distance_from_origin
