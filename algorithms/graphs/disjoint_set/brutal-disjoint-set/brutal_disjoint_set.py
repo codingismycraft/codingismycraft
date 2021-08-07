@@ -17,8 +17,25 @@ def brutal_disjoint_set(edges):
             nodes.append(n2)
 
     groups = {}
+    group_by_node = {}
     for i, n in enumerate(nodes):
-        groups[f'S{i+1}'] = [n]
+        group_name = f'S{i+1}'
+        groups[group_name] = [n]
+        group_by_node[n] = group_name
 
-    print(groups)
+    path = []
+    for n1, n2 in edges:
+        group_name_1 = group_by_node[n1]
+        group_name_2 = group_by_node[n2]
+
+        if group_name_1 != group_name_2:
+            groups[group_name_1].extend(groups[group_name_2])
+            del groups[group_name_2]
+            group_by_node[n2] = group_name_1
+            path.append((n1, n2))
+    return path
+
+
+
+
 

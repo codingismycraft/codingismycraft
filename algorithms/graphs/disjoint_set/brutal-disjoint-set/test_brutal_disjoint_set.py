@@ -21,8 +21,10 @@ class TestBrutalDisjointSet(unittest.TestCase):
             ('B', 'C'),
             ('D', 'E'),
         ]
+        expected = [('A', 'C'), ('C', 'D'), ('D', 'E'), ('A', 'B')]
 
         retrieved = brutal_disjoint_set.brutal_disjoint_set(edges)
+        self.assertListEqual(sorted(expected), sorted(retrieved))
 
 
 if __name__ == '__main__':
