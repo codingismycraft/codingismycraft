@@ -5,7 +5,7 @@ To better understand the data and the algorithm see brutal-disjoint-set.png.
 
 import unittest
 
-import brutal_disjoint_set
+import disjoint_set
 
 
 class TestBrutalDisjointSet(unittest.TestCase):
@@ -23,7 +23,7 @@ class TestBrutalDisjointSet(unittest.TestCase):
         ]
         expected = [('A', 'C'), ('C', 'D'), ('D', 'E'), ('A', 'B')]
 
-        retrieved = brutal_disjoint_set.brutal_disjoint_set(edges)
+        retrieved = disjoint_set.brutal_disjoint_set(edges)
         self.assertListEqual(sorted(expected), sorted(retrieved))
 
 

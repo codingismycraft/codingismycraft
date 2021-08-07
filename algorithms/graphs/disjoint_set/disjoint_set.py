@@ -2,7 +2,7 @@
 
 
 def brutal_disjoint_set(edges):
-    """Combines edges to a spanning tree with no cycles.
+    """Implements a brutal solution for the disjoint_set.
 
     :param list[tuple] edges: List of edges
 
