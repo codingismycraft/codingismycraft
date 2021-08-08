@@ -3,7 +3,7 @@
 import unittest
 
 import number_of_islands
-import use_adj_matrix
+import max_area_of_island
 
 
 class TestNumberOfIslands(unittest.TestCase):
@@ -24,10 +24,6 @@ class TestNumberOfIslands(unittest.TestCase):
 
         self.assertEqual(expected, retrieved)
 
-        solution = use_adj_matrix.Solution()
-        retrieved = solution.numIslands(matrix)
-
-        self.assertEqual(expected, retrieved)
 
     def test_number_of_islands_2(self):
         """Tests the number_of_islands function."""
@@ -44,10 +40,23 @@ class TestNumberOfIslands(unittest.TestCase):
         #
         # self.assertEqual(expected, retrieved)
 
-        solution = use_adj_matrix.Solution()
-        retrieved = solution.numIslands(matrix)
 
-        self.assertEqual(expected, retrieved)
+    def test_max_area(self):
+        """Tests max_area solution."""
+        input = [[0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+         [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0],
+         [0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+         [0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0],
+         [0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 0],
+         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
+         [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0],
+         [0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0]]
+
+        expected = 6
+
+        solution = max_area_of_island.Solution()
+
+        self.assertEqual(solution.maxAreaOfIsland(input), expected)
 
 
 if __name__ == '__main__':
