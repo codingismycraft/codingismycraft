@@ -1,8 +1,5 @@
 """Solves the remove islands problem."""
 
-_COLUMN_NAMES = 'ABCDEF'
-_ROW_NAMES = '654321'
-
 
 def remove_islands(input):
     """Solves the remove islands problems.
@@ -52,7 +49,7 @@ def _make_name(row_index, col_index):
     :return: A name representing the passed in row-index pair.
     :rtype: str
     """
-    return f'{_COLUMN_NAMES[col_index]}:{_ROW_NAMES[row_index]}'
+    return f'{col_index}:{row_index}'
 
 
 def _get_borders(matrix):
