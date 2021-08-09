@@ -35,6 +35,7 @@ class TestKruskal(unittest.TestCase):
             '7': [('5', 24), ('4', 18), ('2', 14)],
         }
         expected_weight = 99
+
         path, retrieved_weight = kruskal.kruskal(data)
         self.assertEqual(retrieved_weight, expected_weight)
 
