@@ -2,14 +2,19 @@
 
 ##Undirected graph
 Edges have no direction
+
 ##Directed graph
 Edges have direction
+
 ##Adjacent vertices
 In a graph G , two graph vertices are adjacent if they are joined by a graph edge
+
 ##Adjacent Edges
 Adjacent edges are edges that share a common vertex
+
 ##Complete graph
 Each vertex connect to each other vertex
+
 ##Simple graph
 No loops and no parallel edges
 ##Cycle path
