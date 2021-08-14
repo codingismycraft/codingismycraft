@@ -32,6 +32,10 @@ Two paths are said edge disjoint if they don’t share any edge.
 There is a path from any point to any other point in the graph.
 ### Acyclic graph
 A graph having no graph cycles
+### Hamiltonian Path
+A graph path between two vertices of a graph that visits each vertex exactly once.
+### Hamiltonian cycle
+A Hamiltonian path whose endpoints are adjacent.
 ### Tree
 An undirected graph in which any two vertices are connected by exactly one path
 ### Forest
@@ -65,3 +69,49 @@ The complement graph is dense
 ### Incidence matrix
 Way to represent a graph.The incidence matrix of G is an n × m matrix B = (bik ), where each row corresponds to a vertex and each column corresponds to an edge such that if ek is an edge between i and j, then all elements of column k are 0 except bik = bjk = 1.
 
+Algorithms
+
+<table>
+  <tr>
+    <th>Algorithm name</th>
+    <th>Description</th>
+    <th>Type</th>
+    <th>Complexity</th>
+  </tr>
+  <tr>
+    <td>Breadth first search </td>
+    <td>Traversal</td>
+    <td>Directed or not</td>
+    <td> O(V + E)</td>
+  </tr>
+  <tr>
+    <td>Depth first search </td>
+    <td>Traversal</td>
+    <td>Directed or not</td>
+    <td> O(V + E)</td>
+  </tr>
+  <tr>
+    <td>Dijkstra</td>
+    <td>Shortest path</td>
+    <td>weighted</td>
+    <td> O ( V + E * log V ) </td>
+  </tr>
+  <tr>
+    <td>Disjoint set (union-find)</td>
+    <td>Detects cycles</td>
+    <td>Directed or not</td>
+    <td> O(n lg* n)</td>
+  </tr>
+  <tr>
+    <td>Prim</td>
+    <td>Minimum Spanning Tree</td>
+    <td>weighted</td>
+    <td>O(ElogV)</td>
+  </tr>
+    <tr>
+    <td>Kruskal</td>
+    <td>Minimum Spanning Tree</td>
+    <td>weighted</td>
+    <td>O(ElogV)</td>
+  </tr>
+</table>
