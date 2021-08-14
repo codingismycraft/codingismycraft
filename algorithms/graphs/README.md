@@ -69,7 +69,7 @@ The complement graph is dense
 ### Incidence matrix
 Way to represent a graph.The incidence matrix of G is an n × m matrix B = (bik ), where each row corresponds to a vertex and each column corresponds to an edge such that if ek is an edge between i and j, then all elements of column k are 0 except bik = bjk = 1.
 
-Algorithms
+# Graph Algorithms
 
 <table>
   <tr>
