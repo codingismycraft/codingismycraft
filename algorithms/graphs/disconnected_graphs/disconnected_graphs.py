@@ -41,7 +41,6 @@ def make_weakly_connected_graph(graph):
     return weak_graph
 
 
-
 def _get_connected_subgraph(graph, node_to_start_from, nodes):
     """Finds the connected sub-graph for the passed node.
 
@@ -80,4 +79,3 @@ def _get_connected_subgraph(graph, node_to_start_from, nodes):
         nodes.remove(node)
 
     return subgraph
-
