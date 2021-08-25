@@ -9,7 +9,6 @@ def dfs_disconnected(graph):
         subgraph_count += 1
         discovered.append(visited)
         all_nodes = all_nodes.difference(visited)
-
     return discovered, subgraph_count
 
 
