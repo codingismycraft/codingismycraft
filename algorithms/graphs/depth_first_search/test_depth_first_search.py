@@ -16,10 +16,9 @@ class TestDepthFirstSearch(unittest.TestCase):
             '3': ['1', '2'],
         }
 
-        visited, path, all_steps = dfs.dfs(data, '1')
+        dfs.dfs(data, '1')
+        visited = dfs.dfs(data, '1')
         self.assertSetEqual(set(visited), set(data.keys()))
-        print('path:      ', path)
-        print('all_steps: ', all_steps)
 
     def test_dfs_example_2(self):
         """Tests the dfs example 2."""
@@ -30,10 +29,8 @@ class TestDepthFirstSearch(unittest.TestCase):
             '4': ['1', '3'],
         }
 
-        visited, path, all_steps = dfs.dfs(data, '1')
+        visited = dfs.dfs(data, '1')
         self.assertSetEqual(set(visited), set(data.keys()))
-        print('path:      ', path)
-        print('all_steps: ', all_steps)
 
     def test_dfs_example_3(self):
         """Tests the dfs example 2."""
@@ -43,11 +40,8 @@ class TestDepthFirstSearch(unittest.TestCase):
             '3': ['1', '4'],
             '4': ['1', '3', '2'],
         }
-
-        visited, path, all_steps = dfs.dfs(data, '1')
+        visited = dfs.dfs(data, '1')
         self.assertSetEqual(set(visited), set(data.keys()))
-        print('path:      ', path)
-        print('all_steps: ', all_steps)
 
     def test_dfs(self):
         """Tests Depth First Search."""
@@ -61,10 +55,28 @@ class TestDepthFirstSearch(unittest.TestCase):
             '5': ['1']
         }
 
-        visited, path, all_steps = dfs.dfs(data, '2')
-        #self.assertSetEqual(set(visited), set(data.keys()))
-        print('path:      ', path)
-        print('all_steps: ', all_steps)
+        print(dfs.dfs(data, '2'))
+
+    def test_dfs_disconnected(self):
+        """Tests Depth First Search."""
+
+        data = {
+            "A": ["C", "B", "D"],
+            "B": ["A"],
+            "C": ["A", "E"],
+            "D": ["A", "E"],
+            "E": ["C", "D"],
+            "F": ["K"],
+            "G": ["I", "H"],
+            "H": ["G"],
+            "I": ["G", "K"],
+            "K": ["I", "F"],
+            "L": []
+        }
+
+        retrieved, subgraph_count = dfs.dfs_disconnected(data)
+
+        self.assertEqual(subgraph_count, 3)
 
 
 if __name__ == '__main__':

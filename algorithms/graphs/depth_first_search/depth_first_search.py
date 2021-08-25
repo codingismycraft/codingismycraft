@@ -1,7 +1,34 @@
 """Implements depth first search."""
 
+def dfs_disconnected(graph):
+    all_nodes = set(graph.keys())
+    discovered = []
+    subgraph_count = 0
+    while all_nodes:
+        visited = dfs(graph, list(all_nodes)[0])
+        subgraph_count += 1
+        discovered.append(visited)
+        all_nodes = all_nodes.difference(visited)
 
-def dfs(graph, parent, destination=None):
+    return discovered, subgraph_count
+
+
+def dfs(graph, starting_node):
+    stack = [[starting_node, iter(graph[starting_node])]]
+    visited = set(starting_node)
+    while stack:
+        parrent_node, children_iter = stack[-1]
+        try:
+            child = next(children_iter)
+            if child not in visited:
+                stack.append([child, iter(graph[child])])
+                visited.add(child)
+        except StopIteration:
+            stack.pop()
+    return visited
+
+
+def dfs1(graph, parent, destination=None):
     """Traverses the passed in graph using depth first search.
 
     1. Create a stack to hold the previously visited nodes.
