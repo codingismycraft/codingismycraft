@@ -2,7 +2,7 @@
 
 import unittest
 
-from .. import graph
+import graph
 
 # Aliases.
 Graph = graph.Graph

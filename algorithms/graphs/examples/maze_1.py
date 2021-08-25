@@ -1,9 +1,5 @@
 """Finds the path in a maze."""
 
-import graph
-import breadth_fisrt_search
-import depth_first_search
-
 _GRAPH_MATRIX = [
     [0, 1, 1, 1, 0, 0, 1, 1],
     [1, 0, 1, 0, 0, 0, 1, 0],
@@ -70,13 +66,47 @@ def make_graph(matrix):
     return graph
 
 
+def bsf(graph, root, destination):
+    """Uses bsf to find the path from root to destination.
+
+    :param dict g : The graph to search.
+    :param root : The root to start from.
+    :param destination : The node to end.
+
+    :returns: The shortest path from root to destination.
+    :rtype: list
+    """
+    if root not in graph or destination not in graph:
+        return []
+
+    visited = [root]
+    queue = [(root, [root])]
+
+    while queue:
+        node, path = queue.pop(0)
+        if node == destination:
+            return path
+        visited.append(node)
+        for child in graph[node]:
+            if child not in visited:
+                queue.append( (child, path[:] + [child]))
+
+    return []
+
+
+
 g = make_graph(_GRAPH_MATRIX)
 
+for k, v in g.items():
+    print(k, v)
 
-Graph = graph.Graph(g)
+
+
 print("using breadth first search")
-retrieved = breadth_fisrt_search.bsf(Graph, "0:7", "7:0")
-path = [x[0] for x in retrieved]
-print(path)
-print("using depth first search")
-print(depth_first_search.dfs(Graph.get_as_dict(), "7:0", "0:7"))
+retrieved = bsf(g, "7:0", "0:7")
+print(retrieved)
+
+# path = [x[0] for x in retrieved]
+# print(path)
+# print("using depth first search")
+# print(depth_first_search.dfs(Graph.get_as_dict(), "7:0", "0:7")[1])
