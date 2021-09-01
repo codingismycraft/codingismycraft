@@ -1,30 +1,14 @@
 """Tests union find."""
 
+import random
 import unittest
 
 import unionfind
 
 
 class MyUnionFind(unittest.TestCase):
-    def test_disjoint_set(self):
-        """Tests the disjoint set function."""
-        graph = {
-            "A": ["B", "C"],
-            "B": ["A", "D", "E"],
-            "C": ["A", "D"],
-            "D": ["B", "C"],
-            "E": ["B", "G", "F"],
-            "F": ["E", "H"],
-            "G": ["E", "H"],
-            "H": ["G", "F"],
-        }
-
-        retrieved = unionfind.disjoint(graph)
-        print(retrieved)
-        self.assertEqual(len(retrieved), 7)
 
     def test_check_cirle_forming(self):
-
         edges = [
             ('A', 'B'),
             ('A', 'C'),
@@ -37,19 +21,25 @@ class MyUnionFind(unittest.TestCase):
             ('G', 'H')
         ]
 
-        cycle_finder = unionfind.CycleFinder()
+        random.shuffle(edges)
 
+        self.assertEqual(len(edges), 9)
+
+        cycle_finder = unionfind.CycleFinder()
         no_cycle_forming_edges = []
         for n1, n2 in edges:
-            if cycle_finder.is_cycle(n1, n2):
-                print(f"{n1}, {n2} are forming a cycle..")
-            else:
-                no_cycle_forming_edges.append( (n1, n2) )
+            if not cycle_finder.is_cycle(n1, n2):
+                no_cycle_forming_edges.append((n1, n2))
 
+        self.assertEqual(len(no_cycle_forming_edges), 7)
         print(no_cycle_forming_edges)
+        print(cycle_finder.top_level_parents)
 
-
-
+        # Verify compression
+        # parents = cycle_finder.top_level_parents
+        # for node, value in parents.items():
+        #     if not isinstance(value, int):
+        #         self.assertTrue(isinstance(parents[node], int))
 
 
 if __name__ == '__main__':

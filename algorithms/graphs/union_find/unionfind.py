@@ -5,6 +5,10 @@ class CycleFinder:
     def __init__(self):
         self._top_level_parents = {}
 
+    @property
+    def top_level_parents(self):
+        return self._top_level_parents.copy()
+
     def is_cycle(self, n1, n2):
         if n1 not in self._top_level_parents:
             self._top_level_parents[n1] = -1
