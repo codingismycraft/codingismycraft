@@ -7,6 +7,23 @@ import unionfind
 
 
 class MyUnionFind(unittest.TestCase):
+    def test_check_cirle_forming1(self):
+        cycle_finder = unionfind.CycleFinder()
+        print(cycle_finder.parents)
+
+        self.assertFalse(cycle_finder.forms_cycle("A", "B"))
+        print(cycle_finder.parents)
+
+        self.assertFalse(cycle_finder.forms_cycle("E", "D"))
+        print(cycle_finder.parents)
+
+        self.assertFalse(cycle_finder.forms_cycle("C", "D"))
+        print(cycle_finder.parents)
+
+        self.assertFalse(cycle_finder.forms_cycle("B", "C"))
+        print(cycle_finder.parents)
+
+        self.assertTrue(cycle_finder.forms_cycle("A", "D"))
 
     def test_check_cirle_forming(self):
         edges = [
@@ -20,26 +37,18 @@ class MyUnionFind(unittest.TestCase):
             ('F', 'H'),
             ('G', 'H')
         ]
-
         random.shuffle(edges)
-
         self.assertEqual(len(edges), 9)
 
         cycle_finder = unionfind.CycleFinder()
         no_cycle_forming_edges = []
         for n1, n2 in edges:
-            if not cycle_finder.is_cycle(n1, n2):
+            if not cycle_finder.forms_cycle(n1, n2):
                 no_cycle_forming_edges.append((n1, n2))
 
         self.assertEqual(len(no_cycle_forming_edges), 7)
         print(no_cycle_forming_edges)
-        print(cycle_finder.top_level_parents)
-
-        # Verify compression
-        # parents = cycle_finder.top_level_parents
-        # for node, value in parents.items():
-        #     if not isinstance(value, int):
-        #         self.assertTrue(isinstance(parents[node], int))
+        print(cycle_finder.parents)
 
 
 if __name__ == '__main__':
