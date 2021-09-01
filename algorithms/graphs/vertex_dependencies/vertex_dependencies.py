@@ -16,6 +16,7 @@ class DependencyCounter:
         :returns: All the dependencies for the passed in node.
         :rtype: set.
         """
+        print(f"Counting dependencies for {node}")
         dependencies = set()
         for child in self._graph[node]:
             dependencies.add(child)
@@ -43,39 +44,19 @@ class DependencyCounter:
 
 
 def count_dependencies(graph):
-    nodes = list(graph.keys())
-    dependencies = {}
-    for node in nodes:
-        _traverse_node(graph, node, dependencies)
-    return {k: len(v) for k, v in dependencies.items()}
-
-
-def _traverse_node(graph, node, dependencies):
-    visited = set()
-    stack = []
-    current_node = node
-    while current_node:
-        if node not in dependencies:
-            dependencies[node] = set()
-        for child in graph[current_node]:
-            dependencies[node].add(child)
-        if current_node not in visited:
-            visited.add(current_node)
-        next_node = _get_unvisited_child(current_node, graph, visited)
-        if next_node is not None:
-            stack.append(current_node)
-            current_node = next_node  # Move forward.
-        elif stack:
-            current_node = stack.pop()  # Move Backward.
-        else:
-            current_node = None
-    return dependencies
-
-
-def _get_unvisited_child(node, graph, visited):
-    for child in graph[node]:
-        if child not in visited:
-            return child
-    return None
-
-
+    dependency_counter = {parent: 0 for parent in graph}
+    for current_node in graph:
+        stack = [[current_node, iter(graph[current_node])]]
+        visited = set()
+        visited.add(current_node)
+        while stack:
+            parent, children_iter = stack[-1]
+            try:
+                child = next(children_iter)
+                if child not in visited:
+                    visited.add(child)
+                    dependency_counter[current_node] += 1
+                    stack.append([child, iter(graph[child])])
+            except StopIteration:
+                stack.pop()
+    return dependency_counter

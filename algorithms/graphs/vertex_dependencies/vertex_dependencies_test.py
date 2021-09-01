@@ -4,8 +4,6 @@ import unittest
 
 import vertex_dependencies
 
-# Aliases.
-DependencyCounter = vertex_dependencies.DependencyCounter
 
 class TestVertexDependencies(unittest.TestCase):
     """Tests the vertex_dependencies module."""
@@ -65,13 +63,10 @@ class TestVertexDependencies(unittest.TestCase):
         }
 
         retrieved = vertex_dependencies.count_dependencies(data)
-
         self.assertEqual(len(retrieved), len(expected))
 
         for k, v in retrieved.items():
             self.assertEqual(v, expected[k])
-
-
 
     def test_count_dependencies(self):
         """Tests the make_weakly_connected."""
@@ -103,7 +98,7 @@ class TestVertexDependencies(unittest.TestCase):
             "L": 0
         }
 
-        retrieved = DependencyCounter.count_dependencies(data)
+        retrieved = vertex_dependencies.count_dependencies(data)
 
         self.assertEqual(len(retrieved), len(expected))
 
@@ -130,7 +125,7 @@ class TestVertexDependencies(unittest.TestCase):
             "6": 0
         }
 
-        retrieved = DependencyCounter.count_dependencies(data)
+        retrieved = vertex_dependencies.count_dependencies(data)
 
         self.assertEqual(len(retrieved), len(expected))
 
