@@ -11,20 +11,14 @@ def bsf(graph, root, destination):
     :returns: The shortest path from root to destination.
     :rtype: list
     """
-    if root not in graph or destination not in graph:
-        return []
-
-    visited = [root]
     queue = [(root, [root])]
-
+    visited = {root}
     while queue:
-        node, path = queue.pop(0)
-        if node == destination:
+        parent, path = queue.pop(0)
+        if parent == destination:
             return path
-        visited.append(node)
-        for child in graph[node]:
+        for child in graph[parent]:
             if child not in visited:
-                queue.append( (child, path[:] + [child]))
-
+                visited.add(child)
+                queue.append((child, path[:] + [child]))
     return []
-

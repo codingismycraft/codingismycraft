@@ -21,6 +21,7 @@ class TestGraph(unittest.TestCase):
         }
         expected = ['5', '7', '8']
         retrieved = bfs.bsf(data, '5', '8')
+        print(retrieved)
         self.assertListEqual(expected, retrieved)
 
     def test_bsf_example_1(self):
