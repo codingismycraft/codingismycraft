@@ -1,0 +1,2 @@
+### Implements string algorithms.
+ 
