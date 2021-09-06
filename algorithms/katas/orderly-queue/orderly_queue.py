@@ -5,33 +5,35 @@ https://leetcode.com/explore/challenge/card/september-leetcoding-challenge-2021/
 
 import heapq
 
+class Solution:
+    def orderlyQueue(self, s, k):
+        heap = list(s)
+        heapq.heapify(heap)
+        response = list(str(s))
 
-def get_index_to_delete(array, low, hi, char_to_add):
-    min_index = low
-    min_value = array[low]
+        for index in range(0, k):
+            char_to_add = heapq.heappop(heap)
+            while response[index] != char_to_add:
+                i = self.get_index_to_delete(response, index, k, char_to_add)
+                char_to_move = response[i]
+                del response[i]
+                response += [char_to_move]
 
-    for i in range(low, hi):
-        if array[i] == char_to_add:
-            continue
-        if array[i] < min_value:
-            min_index = i
-            min_value = array[i]
-
-    return min_index
+        return ''.join(response)
 
 
-def solve_it(s, k):
-    heap = list(s)
-    heapq.heapify(heap)
-    response = list(str(s))
+    def get_index_to_delete(self, array, low, hi, char_to_add):
+        min_index = low
+        min_value = array[low]
 
-    for index in range(0, k):
-        char_to_add = heapq.heappop(heap)
-        while response[index] != char_to_add:
-            i = get_index_to_delete(response, index, k, char_to_add)
-            char_to_move = response[i]
-            del response[i]
-            response += [char_to_move]
+        for i in range(low, hi):
+            if array[i] == char_to_add:
+                continue
+            if array[i] < min_value:
+                min_index = i
+                min_value = array[i]
 
-    return ''.join(response)
+        return min_index
+
+
 
