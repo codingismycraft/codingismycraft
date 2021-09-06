@@ -45,4 +45,4 @@ def read_data(filename=None):
 
 
 if __name__ == '__main__':
-    create_data_file(10000, 30, 'testing-data.pickle')
+    create_data_file(200, 5, 'testing-data.pickle')
