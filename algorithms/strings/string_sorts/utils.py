@@ -40,5 +40,5 @@ def read_data():
 
 
 if __name__ == '__main__':
-    create_data_file(1000, 4)
+    create_data_file(100, 4)
 

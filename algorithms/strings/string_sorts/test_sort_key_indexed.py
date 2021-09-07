@@ -3,12 +3,12 @@
 import datetime
 import unittest
 
-import key_indexed
+import sort_key_indexed
 import utils
 import qsort
 
 # Alias.
-key_indexed_sort = key_indexed.key_indexed_sort
+key_indexed_sort = sort_key_indexed.key_indexed_sort
 qsort = qsort.qsort
 
 
