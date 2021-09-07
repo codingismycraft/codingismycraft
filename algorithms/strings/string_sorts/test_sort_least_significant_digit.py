@@ -60,6 +60,28 @@ class TestLSDIndexed(unittest.TestCase):
         self.assertListEqual(retrieved, expected)
         print(retrieved)
 
+    def test_compare_with_quick_sort(self):
+        """Compares LSG against quick sort."""
+        MAX_ROWS = 3000
+        data = utils.read_data(max_rows=MAX_ROWS)
+        data = [d[0] for d in data]
+
+        t1 = datetime.datetime.now()
+        qsort(data)
+        t2 = datetime.datetime.now()
+        regular_sort_duration = (t2 - t1).total_seconds()
+        print(f'Regular sort duration: {regular_sort_duration} seconds')
+
+        data = utils.read_data(max_rows=MAX_ROWS)
+        data = [d[0] for d in data]
+
+        t1 = datetime.datetime.now()
+        retrieved = lsd_sort(data)
+        t2 = datetime.datetime.now()
+        key_indexed_sort_duration = (t2 - t1).total_seconds()
+        print(f'key indexed duration: {key_indexed_sort_duration} seconds')
+        faster_times = int(regular_sort_duration / key_indexed_sort_duration)
+        print(f'Key sorting faster by {faster_times} times.')
 
 
 if __name__ == '__main__':

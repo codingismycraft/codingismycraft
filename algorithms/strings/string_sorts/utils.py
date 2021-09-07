@@ -17,14 +17,14 @@ def create_data_file(n, m):
     faker_instance = faker.Faker()
     with open(_FILENAME, 'w') as file:
         for counter, _ in enumerate(range(n)):
-            name = faker_instance.name()
+            name = faker_instance.bothify('########', letters="ABCDEFGHIJKLMNOP")
             sector = random.randint(1, m)
             file.write(f'"{name}",{sector}\n')
             if counter % 1000 == 0:
                 print(counter)
 
 
-def read_data():
+def read_data(max_rows=None):
     """Loads the testing data from the passed in file.
 
     :param str filename: The filename to load the data from.
@@ -33,12 +33,16 @@ def read_data():
     :rtype: list[Tuple[str, int]]
     """
     data = []
+    if max_rows is None:
+        max_rows = float("inf")
     with open(_FILENAME, 'r') as file:
-        for tokens in csv.reader(file):
+        for counter, tokens in enumerate(csv.reader(file)):
             data.append((tokens[0], int(tokens[1])))
+            if counter >= max_rows:
+                break
     return data
 
 
 if __name__ == '__main__':
-    create_data_file(100, 4)
+    create_data_file(5000, 4)
 

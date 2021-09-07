@@ -54,7 +54,7 @@ class TestKeyIndexed(unittest.TestCase):
 
     def test_performance(self):
         """Compares the performance against a regular sort."""
-        data = utils.read_data()
+        data = utils.read_data(max_rows=1000)
 
         t1 = datetime.datetime.now()
         qsort(data, less_than=lambda obj1, obj2: obj1[1] < obj2[1])
@@ -62,7 +62,7 @@ class TestKeyIndexed(unittest.TestCase):
         regular_sort_duration = (t2 - t1).total_seconds()
         print(f'Regular sort duration: {regular_sort_duration} seconds')
 
-        data = utils.read_data()
+        data = utils.read_data(max_rows=1000)
         t1 = datetime.datetime.now()
         sorted_data = key_indexed_sort(data)
         t2 = datetime.datetime.now()
