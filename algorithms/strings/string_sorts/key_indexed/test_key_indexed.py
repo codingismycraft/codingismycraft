@@ -12,75 +12,64 @@ key_indexed_sort = key_indexed.key_indexed_sort
 qsort = qsort.qsort
 
 
-class Student:
-
-    def __init__(self, name, sector):
-        self.name = name
-        self.sector = sector
-
-    def __lt__(self, other):
-        return self.sector < other.sector
-
-    def __eq__(self, other):
-        return self.sector == other.sector
-
-    def __ge__(self, other):
-        return self.sector >= other.sector
-
-
 class TestKeyIndexed(unittest.TestCase):
     """Test the key_indexed module."""
 
     def vefiry_solution(self, retrieved):
-        current_sector = retrieved[0].sector
-        for s in retrieved:
-            self.assertTrue(s.sector >= current_sector)
-            current_sector = s.sector
+        self.assertTrue(retrieved)
+        current_sector = retrieved[0][1]
+        for _, sector in retrieved:
+            self.assertTrue(sector >= current_sector)
+            current_sector = sector
 
     def test_key_indexed_sort(self):
-        """Tests the sort function."""
         data = [
-            Student('Christian Long', 2),
-            Student('Brittney Ayala', 3),
-            Student('Eric Macias', 2),
-            Student('Lindsey Harvey', 3),
-            Student('Sandra Sanders', 2),
-            Student('Mr. Timothy Young', 2),
-            Student('Chloe Huang', 1),
-            Student('Tonya Jones', 1),
-            Student('Erica Archer', 3),
-            Student('David Martinez', 3)
+            ('Christian Long', 2),
+            ('Brittney Ayala', 3),
+            ('Eric Macias', 2),
+            ('Lindsey Harvey', 3),
+            ('Sandra Sanders', 2),
+            ('Mr. Timothy Young', 2),
+            ('Chloe Huang', 1),
+            ('Tonya Jones', 1),
+            ('Erica Archer', 3),
+            ('David Martinez', 3)
         ]
 
-        retrieved = key_indexed_sort(data, 1, 3)
-        expected = sorted(data, key=lambda d: d.sector)
+        expected = [
+            ('Chloe Huang', 1),
+            ('Tonya Jones', 1),
+            ('Christian Long', 2),
+            ('Eric Macias', 2),
+            ('Sandra Sanders', 2),
+            ('Mr. Timothy Young', 2),
+            ('Brittney Ayala', 3),
+            ('Lindsey Harvey', 3),
+            ('Erica Archer', 3),
+            ('David Martinez', 3)
+        ]
+
+        retrieved = key_indexed_sort(data)
         self.assertListEqual(retrieved, expected)
-        self.vefiry_solution(retrieved)
 
     def test_performance(self):
         """Compares the performance against a regular sort."""
-        students = [Student(name, sector) for name, sector in utils.read_data()]
+        data = utils.read_data()
 
         t1 = datetime.datetime.now()
-        expected = students[:]
-        qsort(expected)
+        qsort(data, less_than=lambda obj1, obj2: obj1[1] < obj2[1])
         t2 = datetime.datetime.now()
         regular_sort_duration = (t2 - t1).total_seconds()
         print(f'Regular sort duration: {regular_sort_duration} seconds')
 
+        data = utils.read_data()
         t1 = datetime.datetime.now()
-        retrieved = key_indexed_sort(students, 1, 5)
+        sorted_data = key_indexed_sort(data)
         t2 = datetime.datetime.now()
         key_indexed_sort_duration = (t2 - t1).total_seconds()
-
-        self.assertListEqual(retrieved, expected)
-
-        print(f'{len(retrieved)}, {len(expected)}')
-
         print(f'key indexed duration: {key_indexed_sort_duration} seconds')
-        print(Student.counter)
-
-        print(regular_sort_duration / key_indexed_sort_duration)
+        faster_times = int(regular_sort_duration / key_indexed_sort_duration)
+        print(f'Key sorting faster by {faster_times} times.')
 
 
 if __name__ == '__main__':

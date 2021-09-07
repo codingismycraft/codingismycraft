@@ -1,29 +1,32 @@
-
-
-def key_indexed_sort(data, min_sector, max_sector):
+def key_indexed_sort(data):
     """Sorts the passed in strings using key indexed method.
 
-    :param list[Tuple[str, int]] data: A list of tuples consisting of a string
-        and a section to sort by.
+    :param List[(str, sector)] data: A list containing tuples of the
+    the string to sort and its sector.
+
+    :returns: A list with the sorted by sectors strings.
+    :rtype: List[str]
     """
+    max_sector = data[0][1]
+    for _, sector in data:
+        if sector > max_sector:
+            max_sector = sector
 
-    sector_frequency = [0] * (max_sector + 1)
+    frequencies = [0] * (max_sector + 1)
 
-    for student in data:
-        sector_frequency[student.sector] += 1
+    for _, sector in data:
+        frequencies[sector] += 1
 
-    index_for_sector = [0] * (max_sector + 1)
+    for i in range(1, max_sector+1):
+        frequencies[i] += frequencies[i-1]
 
-    current_index = 0
-    for index, frequency in enumerate(sector_frequency):
-        index_for_sector[index] = current_index
-        current_index += frequency
+    starting_position = [0] * (max_sector + 1)
+    for i in range(1, max_sector + 1):
+        starting_position[i] = frequencies[i-1]
 
-    sorted_students = [""] * len(data)
+    sorted_strings = [None] * len(data)
+    for string, sector in data:
+        sorted_strings[starting_position[sector]] = (string, sector)
+        starting_position[sector] += 1
 
-    for student in data:
-        position = index_for_sector[student.sector]
-        sorted_students[position] = student
-        index_for_sector[student.sector] += 1
-
-    return sorted_students
+    return sorted_strings
