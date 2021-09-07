@@ -16,6 +16,7 @@ class TestKeyIndexed(unittest.TestCase):
     """Test the key_indexed module."""
 
     def vefiry_solution(self, retrieved):
+        """Verifies that the passed in data are sorted by sector."""
         self.assertTrue(retrieved)
         current_sector = retrieved[0][1]
         for _, sector in retrieved:
@@ -23,6 +24,7 @@ class TestKeyIndexed(unittest.TestCase):
             current_sector = sector
 
     def test_key_indexed_sort(self):
+        """Tests the key index sort."""
         data = [
             ('Christian Long', 2),
             ('Brittney Ayala', 3),

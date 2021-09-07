@@ -2,6 +2,14 @@
 
 
 def lsd_sort(data):
+    """Sorts the passed in data using the least significant digit sort.
+
+    :param list[str] data: The list of strings to match; assumes that all
+    of the passed in strings are of the same length.
+
+    :returns: The sorted data.
+    :rtype: list[str]
+    """
     data = [d.strip() for d in data]
     length = len(data[0])
     _verify_lengths(data, length)
@@ -14,6 +22,11 @@ def lsd_sort(data):
 
 
 def _key_sort(data, sorted_data, digit_index):
+    """Sorts the passed in data based on the digit index.
+
+    :returns: The sorted data.
+    :rtype: List[str]
+    """
     assert len(data) == len(sorted_data)
     frequencies = [0] * 256
     for string in data:
@@ -38,5 +51,12 @@ def _key_sort(data, sorted_data, digit_index):
 
 
 def _verify_lengths(data, length):
+    """Checks that all the strings are of the same length.
+
+    :param list[str] data: The list of strings to match; assumes that all
+    of the passed in strings are of the same length.
+
+    :param int length: The expected length for all the strings.
+    """
     for d in data:
         assert len(d) == length
