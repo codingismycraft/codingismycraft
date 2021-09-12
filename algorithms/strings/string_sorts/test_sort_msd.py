@@ -14,14 +14,17 @@ class TestSortingByMSD(unittest.TestCase):
         data = [
             'kzy',
             'acb',
-            'lab',
+            'zzz',
             'bab',
+            'lab',
+            'aab',
         ]
 
         strings = data[:]
-        sort_msd.msd_sort(strings, position=2, lo=0, hi=3)
+        sort_msd.msd_sort(strings, position=0, lo=0, hi=len(data))
 
-        print(strings)
+
+
 
         expected = [
             'kzy',
