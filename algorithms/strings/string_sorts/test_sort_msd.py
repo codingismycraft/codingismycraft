@@ -8,9 +8,7 @@ import sort_msd
 class TestSortingByMSD(unittest.TestCase):
     """Tests sorting by most significant digit."""
 
-
     def test_count_frequencies(self):
-
         data = [
             'kzy',
             'acb',
@@ -19,20 +17,14 @@ class TestSortingByMSD(unittest.TestCase):
             'lab',
             'aab',
         ]
-
         strings = data[:]
-        sort_msd.msd_sort(strings, position=0, lo=0, hi=len(data))
-
-
-
-
+        sort_msd.msd_sort(strings, position=0, lo=0, hi=3)
         expected = [
             'kzy',
             'lab',
             'acb',
             'bbb',
         ]
-
 
 
     # def test1(self):
