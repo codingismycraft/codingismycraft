@@ -27,19 +27,13 @@ def msd_sort(strings, position, low_index, high_index):
         s = strings[i]
         c = get_chr_ord(s[position])
         index_to_place_s = starting_index[c]
-        try:
-            aux[index_to_place_s] = s
-        except IndexError:
-            print('here')
+        aux[index_to_place_s] = s
         starting_index[c] += 1
 
     for i in range(low_index, high_index):
         strings[i] = aux[i]
 
-    position += 1
-    if position >= 3:
-        return
     for i in range(len(starting_index) - 1):
         from_index = starting_index[i]
         to_index = starting_index[i + 1]
-        msd_sort(strings, position, low_index=from_index, high_index=to_index)
+        msd_sort(strings, position+1, low_index=from_index, high_index=to_index)
