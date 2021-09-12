@@ -8,23 +8,33 @@ import sort_msd
 class TestSortingByMSD(unittest.TestCase):
     """Tests sorting by most significant digit."""
 
+
+    def test1(self):
+        data = ['acc', 'adb', 'bad', 'bae', 'dda']
+        position = 1
+        low_index = 2
+        high_index = 4
+        strings = data[:]
+        sort_msd.msd_sort(strings, position=position, low_index=low_index,
+                          high_index=high_index)
+
+        print(strings)
+
     def test_count_frequencies(self):
         data = [
-            'kzy',
-            'acb',
-            'zzz',
-            'bab',
-            'lab',
-            'aab',
+            'dda',
+            'adb',
+            'acc',
+            'zab',
+            'bad',
+            'aaa',
+            'bae',
         ]
         strings = data[:]
-        sort_msd.msd_sort(strings, position=0, lo=0, hi=3)
-        expected = [
-            'kzy',
-            'lab',
-            'acb',
-            'bbb',
-        ]
+        sort_msd.msd_sort(strings, position=0, low_index=0, high_index=len(data))
+
+        print(strings)
+
 
 
     # def test1(self):

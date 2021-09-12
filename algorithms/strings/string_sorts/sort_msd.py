@@ -1,6 +1,6 @@
 """Sorts a list of strings by Most Significant Digit."""
 
-ALPHABET_SIZE = 256
+ALPHABET_SIZE = 27
 
 
 def get_chr_ord(c):
@@ -8,23 +8,38 @@ def get_chr_ord(c):
     return y
 
 
-def msd_sort(strings, position, lo, hi):
-    freqs = [0] * (ALPHABET_SIZE + 1)
+def msd_sort(strings, position, low_index, high_index):
+    if high_index <= low_index or high_index - low_index == 1:
+        return
 
-    for i in range(lo, hi):
-        freqs[get_chr_ord(strings[i][position]) + 1] += 1
+    freqs = [0] * ALPHABET_SIZE
 
-    for i in range(1, len(freqs) - 1):
-        freqs[i + 1] += freqs[i]
+    for i in range(low_index, high_index):
+        freqs[get_chr_ord(strings[i][position])] += 1
+
+    starting_index = [low_index] * ALPHABET_SIZE
+    for i in range(1, len(starting_index)):
+        starting_index[i] = starting_index[i - 1] + freqs[i - 1]
 
     aux = [None] * len(strings)
 
-    for i in range(lo, hi):
+    for i in range(low_index, high_index):
         s = strings[i]
         c = get_chr_ord(s[position])
-        aux[freqs[c]] = s
-        freqs[c] += 1
+        index_to_place_s = starting_index[c]
+        try:
+            aux[index_to_place_s] = s
+        except IndexError:
+            print('here')
+        starting_index[c] += 1
 
-    for i in range(lo, hi):
+    for i in range(low_index, high_index):
         strings[i] = aux[i]
-    print(strings)
+
+    position += 1
+    if position >= 3:
+        return
+    for i in range(len(starting_index) - 1):
+        from_index = starting_index[i]
+        to_index = starting_index[i + 1]
+        msd_sort(strings, position, low_index=from_index, high_index=to_index)
