@@ -1,3 +1,6 @@
+"""Implements a three way sort for a list of strings."""
+
+
 def three_way_sort(strings, lo=None, hi=None, char_pos=None):
     """Sorts a portion the passed in strings list in place.
 
@@ -24,23 +27,35 @@ def three_way_sort(strings, lo=None, hi=None, char_pos=None):
 
     assert 0 <= lo < hi < len(strings)
 
-    char_to_sort_by = ord(strings[lo][char_pos]) if char_pos < len(strings[lo]) else -1
+    char_to_sort_by = get_value_for_char(strings[lo], char_pos)
 
     while index <= tail:
-        #char_to_check =
-        if _less_than(strings[index], c,  char_pos):
+        char_to_check = get_value_for_char(strings[index], char_pos)
+        if char_to_check < char_to_sort_by:
             swap(strings, index, head)
             head += 1
             index += 1
-        elif _more_than(strings[index], c,  char_pos):
+        elif char_to_check > char_to_sort_by:
             swap(strings, index, tail)
             tail -= 1
         else:
             index += 1
 
-    three_way_sort(strings, lo=lo, hi=head-1, char_pos=char_pos)
-    three_way_sort(strings, lo=head, hi=tail, char_pos=char_pos + 1)
-    three_way_sort(strings, lo=tail+1, hi=hi, char_pos=char_pos)
+    three_way_sort(strings, lo=lo, hi=head - 1, char_pos=char_pos)
+    if char_to_sort_by > 0:
+        three_way_sort(strings, lo=head, hi=tail, char_pos=char_pos + 1)
+    three_way_sort(strings, lo=tail + 1, hi=hi, char_pos=char_pos)
+
+
+def get_value_for_char(s, char_pos):
+    """Gets the numerical value for the char in the passed in position.
+
+    :param str s: The string to get the numerical value for.
+    :param int char_pos: The postion to check.
+
+    :return: The numerical value for the passed in position.
+    """
+    return ord(s[char_pos]) if char_pos < len(s) else -1
 
 
 def swap(strings, index1, index2):
@@ -51,36 +66,3 @@ def swap(strings, index1, index2):
     :param int index2: The second index to use.
     """
     strings[index1], strings[index2] = strings[index2], strings[index1]
-
-
-def _less_than(s1, s2, char_pos):
-    """Compares strings based on a contained character.
-
-    :param str s1: The left hand string to compare.
-    :param str s2: The right hand string to compare.
-    :param int char_pos: The index of the character to use.
-
-    :return: True if the the char to compare is smaller in s1:
-    :rtype: bool
-    """
-    v1 = ord(s1[char_pos]) if char_pos < len(s1) else -1
-    v2 = ord(s2[char_pos]) if char_pos < len(s2) else -1
-
-    return v1 < v2
-
-
-def _more_than(s1, s2, char_pos):
-    """Compares strings based on a contained character.
-
-    :param str s1: The left hand string to compare.
-    :param str s2: The right hand string to compare.
-    :param int char_pos: The index of the character to use.
-
-    :return: True if the the char to compare is smaller in s2:
-    :rtype: bool
-    """
-    v1 = ord(s1[char_pos]) if char_pos < len(s1) else -1
-    v2 = ord(s2[char_pos]) if char_pos < len(s2) else -1
-
-    return v1 > v2
-
