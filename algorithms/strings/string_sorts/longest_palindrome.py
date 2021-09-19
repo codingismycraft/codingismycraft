@@ -2,7 +2,7 @@
 
 
 class DPSolution:
-    """Dynamic programming solution to longest palindrome
+    """Dynamic programming solution to longest palindrome.
 
     :cvar list[list[int]] _matrix: Memoizes the is palindrome table.
     """
@@ -33,3 +33,53 @@ class DPSolution:
                     max_palindrome = s[row:col + 1]
                 row += 1
         return max_palindrome
+
+
+class Solution:
+    """Solution to longest palindrome."""
+
+    @classmethod
+    def check(cls, s, left, right):
+        """Checks if the passed in left and right are palindrome borders.
+
+        :param str s: The string to check for palindrome.
+        :param int left: The left index to check.
+        :param int right: The right index to check.
+
+        :returns: True if the passed in left and right are palindrome borders.
+        :rtype: int.
+        """
+        return left >= 0 and right < len(s) and s[left] == s[right]
+
+    def longestPalindrome(self, s):
+        """Find the longest palindrome substring in the passed string s.
+
+        :param str s: The string to use.
+
+        :returns: The longest palindrome substring.
+        :rtype: str
+        """
+        picked_left = 0
+        picked_right = 0
+
+        for position in range(0, len(s)):
+            left = position
+            right = position
+            while self.check(s, left - 1, right + 1):
+                left -= 1
+                right += 1
+            if picked_right - picked_left < right - left:
+                picked_left = left
+                picked_right = right
+
+            left = position
+            right = position + 1
+            if self.check(s, left, right):
+                while self.check(s, left - 1, right + 1):
+                    left -= 1
+                    right += 1
+                if picked_right - picked_left < right - left:
+                    picked_left = left
+                    picked_right = right
+
+        return s[picked_left:picked_right + 1]

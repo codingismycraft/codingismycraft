@@ -27,6 +27,14 @@ class TestLongestPalindrome(unittest.TestCase):
         for s, expected in self._TESTING_DATA:
             self.assertEqual(solution.longestPalindrome(s), expected)
 
+    def test_solution(self):
+        """Test the longest palindrome solution."""
+
+        solution = lp.Solution()
+
+        for s, expected in self._TESTING_DATA:
+            self.assertEqual(solution.longestPalindrome(s), expected)
+
 
 if __name__ == '__main__':
     unittest.main()
