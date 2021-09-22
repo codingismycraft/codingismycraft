@@ -12,6 +12,9 @@ _TESTING_DATA = [
     [("abcd", "b"), 1],
     [("abcd", "cd"), 2],
     [("abcdeabcdeabcdf", "abcdf"), 10],
+    [("abababababababxbab", "ababx"), 10],
+    [("abababababx", "babx"), 7],
+    [("abababx", "babx"), 3],
 ]
 
 
@@ -27,6 +30,11 @@ class TestKMP(unittest.TestCase):
 
         pattern = "aabcadaabe"
         expected = [0, 1, 0, 0, 1, 0, 1, 2, 3, 0]
+        retrieved = kmp.make_make_lps_table(pattern)
+        self.assertListEqual(expected, retrieved)
+
+        pattern = "ababx"
+        expected = [0, 0, 1, 2, 0]
         retrieved = kmp.make_make_lps_table(pattern)
         self.assertListEqual(expected, retrieved)
 

@@ -34,14 +34,23 @@ def kmp_search(string, pattern):
     if not string or not pattern:
         return None
     lps = make_make_lps_table(pattern)
+    lps = [0] + lps
     j = 0
-    for i in range(len(string)):
+    i = 0
+
+    while i < len(string):
         if string[i] == pattern[j]:
-            if j == len(pattern) - 1:
-                return i - len(pattern) + 1
-            j += 1
+            if j + 1 == len(pattern):
+                return i - j
+            else:
+                i += 1
+                j += 1
         else:
-            j = lps[j]
+            if j == 0:
+                i += 1
+            else:
+                j = lps[j]
+
     return None
 
 
