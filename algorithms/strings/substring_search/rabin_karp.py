@@ -3,11 +3,6 @@
 _SEED = 997
 
 
-def _hash_for_char(c):
-    return ord(c)
-    return ord(c) - ord('a') + 1
-
-
 def rabin_karp_search(text, pattern):
     """Searches in text for substring.
 
@@ -22,45 +17,20 @@ def rabin_karp_search(text, pattern):
 
     pattern_hash = 0
     rolling_hash = 0
+    p_length = len(pattern)
     for k, c in enumerate(pattern):
-        pattern_hash += (_hash_for_char(c) * _SEED ** (len(pattern) - k - 1)) % _SEED
-        rolling_hash += (_hash_for_char(text[k]) * _SEED ** (len(pattern) - k - 1)) % _SEED
+        pattern_hash += (ord(c) * _SEED ** (p_length - k - 1)) % _SEED
+        rolling_hash += (ord(text[k]) * _SEED ** (p_length - k - 1)) % _SEED
 
     pattern_hash = pattern_hash % _SEED
     rolling_hash = rolling_hash % _SEED
-    for i in range(len(text) - len(pattern) + 1):
+    for i in range(len(text) - p_length + 1):
         if i > 0:
-            rolling_hash -= (_hash_for_char(text[i-1]) * _SEED ** (len(pattern)-1))  % _SEED
+            rolling_hash -= (ord(text[i - 1]) * _SEED ** (p_length - 1)) % _SEED
             rolling_hash *= _SEED
-            rolling_hash += _hash_for_char(text[i+len(pattern)-1])
+            rolling_hash += ord(text[i + p_length - 1])
             rolling_hash = rolling_hash % _SEED
         if pattern_hash == rolling_hash:
-            if pattern == text[i: i + len(pattern)]:
+            if pattern == text[i: i + p_length]:
                 return i
     return None
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
