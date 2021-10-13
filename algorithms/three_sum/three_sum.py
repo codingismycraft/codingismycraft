@@ -1,4 +1,5 @@
 def three_sum(nums):
+    """Changed from junk."""
     triplets = set()
     for i in range(len(nums) - 1):
         x = set()
