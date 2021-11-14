@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hopfield Simple example</title>
+
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+    <style>
+
+        br {
+            margin: 0px;
+        }
+
+        .weight_element_span {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 1px solid;
+            background-color: orange;
+        }
+
+
+        .weight_element_span_disabled {
+            background-color: gray;
+            color: gray;
+        }
+
+        .pattern_element_span {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 1px solid;
+        }
+
+        .pattern_element_span_selected {
+            background-color: green;
+        }
+
+
+        .all_patterns_style {
+            margin-left: 20px;
+            margin-right: 0;
+            float: left;
+        }
+
+        .weights_style {
+            margin-left: 20px;
+            margin-right: 0;
+            float: left;
+        }
+
+    </style>
+
+    <script>
+        let GRID_SIZE = 2;
+        let INPUT_PATTERNS = [];
+        let PATTERN_TO_EVALUATE = [];
+        let EVALUATED_PATTERN = [];
+        let WEIGHTS = null;
+
+        function change_width() {
+            GRID_SIZE = $("#grid_size").val();
+            INPUT_PATTERNS = [];
+            PATTERN_TO_EVALUATE = make_pattern();
+            refesh_display();
+            $('#div-weights').empty();
+            add_pattern();
+        }
+
+        function make_pattern() {
+            let pattern = [];
+            for (let i = 0; i < GRID_SIZE * GRID_SIZE; ++i) pattern.push(-1);
+            return pattern;
+        }
+
+        function reevaluate(){
+            PATTERN_TO_EVALUATE = [...EVALUATED_PATTERN];
+            refesh_display();
+        }
+
+        function evaluate_pattern() {
+            EVALUATED_PATTERN = []
+            for (var i = 0; i < PATTERN_TO_EVALUATE.length; ++i) {
+                var w = 0;
+                for (var j = 0; j < PATTERN_TO_EVALUATE.length; ++j) {
+                    if (i !== j) {
+                        w += WEIGHTS[i][j] * PATTERN_TO_EVALUATE[j];
+                    }
+
+                }
+                if (w >= 0) {
+                    EVALUATED_PATTERN.push(1)
+                } else {
+                    EVALUATED_PATTERN.push(-1)
+                }
+            }
+        }
+
+        function display_input_pattern(pattern, where_to_display, allow_edit) {
+            var customDiv = $("<div class='all_patterns_style'/>");
+            for (var row = 0; row < GRID_SIZE; ++row) {
+                for (var col = 0; col < GRID_SIZE; ++col) {
+                    var customSpan;
+                    var index = row * GRID_SIZE + col;
+                    if (pattern[index] === -1) {
+                        customSpan = $("<span class='pattern_element_span'></span>");
+
+                    } else {
+                        customSpan = $("<span class='pattern_element_span pattern_element_span_selected'></span>");
+                    }
+                    customDiv.append(customSpan);
+
+                    if (allow_edit) {
+                        customSpan.attr('data-info', index);
+                        customSpan.on("click", function (m) {
+                            var i = parseInt(this.dataset.info);
+                            pattern[i] *= -1;
+                            refesh_display();
+                        });
+                    }
+                }
+                customDiv.append("<br/>")
+            }
+            let energy = get_energy(pattern);
+            let junk = document.createTextNode('energy: ' + energy)
+
+            customDiv.append(junk);
+
+            $('#' + where_to_display).append(customDiv);
+        }
+
+        function refesh_display() {
+            console.log("Refreshing display..");
+            $('#div-patterns').empty();
+            $('#div-pattens-to-evaluate').empty();
+            INPUT_PATTERNS.forEach(pattern => {
+                display_input_pattern(pattern, "div-patterns", true)
+
+            });
+            train();
+            display_input_pattern(PATTERN_TO_EVALUATE, "div-pattens-to-evaluate", true)
+            evaluate_pattern();
+            display_input_pattern(EVALUATED_PATTERN, "div-pattens-to-evaluate", false);
+        }
+
+        function add_pattern() {
+            INPUT_PATTERNS.push(make_pattern());
+            refesh_display();
+        }
+
+        function get_energy(pattern) {
+            let pl = GRID_SIZE * GRID_SIZE; // pattern length
+            console.assert(pattern.length === pl);
+            let energy = 0;
+            for (var i = 0; i < pl; ++i) {
+                for (var j = 0; j < pl; ++j) {
+                    if (i === j) continue;
+                    energy += pattern[i] * pattern[j] * WEIGHTS[i][j];
+                }
+            }
+            energy *= -0.5;
+            return energy
+        }
+
+
+        function train() {
+            WEIGHTS = []
+
+            // Initialize weights.
+            for (var i = 0; i < GRID_SIZE * GRID_SIZE; i++) {
+                var row = []
+                for (var j = 0; j < GRID_SIZE * GRID_SIZE; j++) {
+                    if (i === j)
+                        row.push("X")
+                    else
+                        row.push(0)
+                }
+                WEIGHTS.push(row)
+            }
+
+            // Calculate weights.
+            for (var patern_index = 0; patern_index < INPUT_PATTERNS.length; ++patern_index) {
+                var active_pattern = INPUT_PATTERNS[patern_index];
+                for (i = 0; i < GRID_SIZE * GRID_SIZE; i++) {
+                    for (j = 0; j < GRID_SIZE * GRID_SIZE; j++) {
+                        if (i === j) continue;
+                        var w = active_pattern[i] * active_pattern[j];
+                        WEIGHTS[i][j] += w;
+                    }
+                }
+            }
+
+            // Display weights.
+            var customDiv = $("<div class='weights_style'/>");
+            for (var row = 0; row < GRID_SIZE * GRID_SIZE; ++row) {
+                for (var col = 0; col < GRID_SIZE * GRID_SIZE; ++col) {
+                    var customSpan;
+                    var value = WEIGHTS[row][col];
+                    if (value === 'X') {
+                        customSpan = $("<span class='weight_element_span weight_element_span_disabled'></span>");
+                        customSpan.text('X');
+                    } else {
+                        customSpan = $("<span class='weight_element_span'></span>");
+                        customSpan.text(value);
+                    }
+                    customDiv.append(customSpan);
+                }
+                customDiv.append("<br/>")
+            }
+            $('#div-weights').empty();
+            $('#div-weights').append(customDiv);
+        }
+
+        function toggle_weights_visibility() {
+            var x = document.getElementById("div-weights");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+                $("#show_weights_button").text("Hide weights")
+            } else {
+                x.style.display = "none";
+                $("#show_weights_button").text("Show weights")
+            }
+        }
+    </script>
+
+</head>
+<body>
+
+<div>
+    <label for="grid_size">Select size</label>
+    <select name="grid_size" onchange="change_width()" id="grid_size">
+        <option value="2">2X2</option>
+        <option value="3">3X3</option>
+        <option value="4">4X4</option>
+        <option value="5">5X5</option>
+        <option value="6">6X6</option>
+        <option value="7">7X7</option>
+        <option value="8">8X8</option>
+    </select>
+    <button onclick="add_pattern();">Add Input pattern</button>
+    <button id="show_weights_button" onclick="toggle_weights_visibility();" >Show weights</button>
+    <button onclick="reevaluate();">Reevalute</button>
+    </button>
+</div>
+<hr>
+Input Patterns
+<br>
+<div id="div-patterns"
+     style="width:1250px; float: left; background-color: lightcyan;">
+</div>
+<br>
+<br>
+<div id="div-weights"
+     style="width:100%; float: left; background-color: #ffffff;display: none">
+</div>
+<br>
+<hr>
+Pattern to Evaluate
+<br>
+<div id="div-pattens-to-evaluate"
+     style="width:1250px; float: left; background-color: #ffffff;">
+</div>
+
+<script>change_width();</script>
+
+
+</body>
+</html>
