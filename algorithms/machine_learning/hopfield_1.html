@@ -75,7 +75,7 @@
             return pattern;
         }
 
-        function reevaluate(){
+        function reevaluate() {
             PATTERN_TO_EVALUATE = [...EVALUATED_PATTERN];
             refesh_display();
         }
@@ -240,24 +240,30 @@
         <option value="8">8X8</option>
     </select>
     <button onclick="add_pattern();">Add Input pattern</button>
-    <button id="show_weights_button" onclick="toggle_weights_visibility();" >Show weights</button>
+    <button id="show_weights_button" onclick="toggle_weights_visibility();">Show
+        weights
+    </button>
     <button onclick="reevaluate();">Reevalute</button>
     </button>
 </div>
-<hr>
+
 Input Patterns
 <br>
-<div id="div-patterns"
-     style="width:1250px; float: left; background-color: lightcyan;">
+<div>
+    <div id="div-patterns"
+         style="width:1250px; float: left; background-color: lightcyan;">
+    </div>
 </div>
 <br>
 <br>
-<div id="div-weights"
-     style="width:100%; float: left; background-color: #ffffff;display: none">
+<div>
+    <div id="div-weights"
+         style="width:100%; float: left; background-color: #ffffff;display: none">
+    </div>
 </div>
 <br>
-<hr>
-Pattern to Evaluate
+<div>Pattern to Evaluate</div>
+
 <br>
 <div id="div-pattens-to-evaluate"
      style="width:1250px; float: left; background-color: #ffffff;">
