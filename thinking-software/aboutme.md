@@ -67,3 +67,25 @@ trading strategy and optimize it automatically using pattern
 recognition algorithms and many more applications mostly related to
 the financial sector.
 
+<hr />
+
+<strong>Some of the Companies that I have worked for</strong>
+<table style="border: none;">
+<tbody>
+<tr style="border: none;">
+<td style="border: none;"><img class="alignnone size-full wp-image-1094" src="./images/google-1.png" alt="google" width="272" height="92" /></td>
+<td style="border: none;"><img class="alignnone size-full wp-image-1014" src="./images/barclays-logo.jpe" alt="barclays-logo" width="272" height="92" /></td>
+<td style="border: none;"><img class="alignnone size-full wp-image-1006" src="./images/caxton-logo.jpe" alt="caxton-logo" width="272" height="92" /></td>
+</tr>
+<tr style="border: none;">
+<td style="border: none;"><img class="alignnone size-full wp-image-1019" src="./images/amplify.png" alt="amplify" width="272" height="92" /></td>
+<td style="border: none;"><img class="alignnone size-full wp-image-1020" src="./images/sherpaa.png" alt="sherpaa" width="272" height="92" /></td>
+<td style="border: none;"><img class="alignnone size-full wp-image-1017" src="./images/ria-logo.jpg" alt="ria-logo" width="272" height="92" /></td>
+</tr>
+<tr style="border: none;">
+<td style="border: none;"><img class="alignnone size-full wp-image-1008" src="./images/citi-group.jpe" alt="citi-group" width="272" height="92" /></td>
+<td style="border: none;"><img class="alignnone size-full wp-image-1010" src="./images/fortress-logo.jpe" alt="fortress-logo" width="272" height="92" /></td>
+<td style="border: none;"><img class="alignnone size-full wp-image-1004" src="./images/inetractive-data.jpe" alt="inetractive-data" width="272" height="92" /></td>
+</tr>
+</tbody>
+</table>
