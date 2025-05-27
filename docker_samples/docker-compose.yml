@@ -1,0 +1,10 @@
+services:
+  dev:
+    build:
+      context: .
+    volumes:
+      - ~/.vim:/home/john/.vim
+      - ~/.vimrc:/home/john/.vimrc
+      - ~/.bashrc:/home/john/.bashrc
+    stdin_open: true
+    tty: true
