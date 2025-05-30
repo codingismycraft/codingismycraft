@@ -1,0 +1,50 @@
+##############################################################################
+##
+## Docker Compose file for development environment
+##
+## Passes the current user's name as an argument to the Dockerfile.
+## Passes the volumes for the .vim configuration, .vimrc, and .bashrc files.
+##
+##############################################################################
+
+services:
+  dev:
+    build:
+      context: .
+      args:
+        USERNAME: ${USER}
+    environment:
+        - DISPLAY=${DISPLAY}
+    volumes:
+      - ~/.vim:/home/john/.vim
+      - ~/.vimrc:/home/john/.vimrc
+      - ~/.bashrc:/home/john/.bashrc
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    stdin_open: true
+    tty: true
+
+# Example usage:
+# ---------------
+# docker compose run  -it  dev bash
+
+# Clipboard sharing
+# -----------------
+# Since clipboard sharing iis not enabled by default in Docker containers we
+# are passing the following environment variables to the container to allow
+# vim to access the host's clipboard:
+#
+# -e DISPLAY:
+#
+# This sets the DISPLAY environment variable, which tells the container to use
+# the host's X11 display for graphical applications, including Vim.
+#
+# -v /tmp/.X11-unix:/tmp/.X11-unix:
+#
+# This creates a shared volume, mapping the host's X11 socket to the
+# container's, allowing the container to access the host's X11 display.
+#
+# To directly run the container with clipboard sharing enabled (without the
+# need of docker-compose), you can use the following command:
+#
+# docker run -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix your_image bash
+
