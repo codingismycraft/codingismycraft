@@ -9,16 +9,13 @@
 
 services:
   dev:
-    build:
-      context: .
-      args:
-        USERNAME: ${USER}
+    image: jpazarzis/jp-base:0.11
     environment:
-        - DISPLAY=${DISPLAY}
+      - DISPLAY=${DISPLAY}
     volumes:
-      - ~/.vim:/home/john/.vim
-      - ~/.vimrc:/home/john/.vimrc
-      - ~/.bashrc:/home/john/.bashrc
+      - ~/.vim:/home/developer/.vim
+      - ~/.vimrc:/home/developer/.vimrc
+      - ~/.bashrc:/home/developer/.bashrc
       - /tmp/.X11-unix:/tmp/.X11-unix
     stdin_open: true
     tty: true

@@ -8,12 +8,9 @@
 
 FROM ubuntu:latest
 
-ARG USERNAME
+ARG USERNAME=developer
 ARG USER_UID=1000
 ARG USER_GID=1000
-
-RUN if [ -z "$USERNAME" ]; then echo "USERNAME is not set"; exit 1; fi
-
 
 # Remove the existing user and group if they exist
 RUN if id "ubuntu" 2>/dev/null; then userdel -r ubuntu; fi && \
