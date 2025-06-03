@@ -65,6 +65,16 @@ RUN chown -R ${USER_UID}:${USER_GID} /home/${USERNAME} || true
 # Switch to the non-root user
 USER ${USERNAME}
 
-# Set the working directory to the user's home
+# Set working directory and HOME for the new user (hard-coded or using build arg with default)
 WORKDIR /home/${USERNAME}
 
+#ENV HOME=/home/${USERNAME}
+#ENV NVM_DIR=$HOME/.nvm
+
+# Install NVM and Node.js as the user, with $HOME set correctly
+#RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash && \
+#    . "$NVM_DIR/nvm.sh" && \
+#    nvm install 22
+
+# Optionally add Node.js to PATH for subsequent Docker RUN commands and containers
+# ENV PATH=$NVM_DIR/versions/node/v22.*/bin:$PATH

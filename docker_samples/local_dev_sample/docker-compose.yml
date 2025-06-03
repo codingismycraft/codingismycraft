@@ -17,6 +17,8 @@ services:
       - ~/.vimrc:/home/developer/.vimrc
       - ~/.bashrc:/home/developer/.bashrc
       - /tmp/.X11-unix:/tmp/.X11-unix
+      - ~/.nvm:/home/developer/.nvm
+      - ~/.config:/home/developer/.config
     stdin_open: true
     tty: true
 
