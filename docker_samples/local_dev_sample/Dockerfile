@@ -1,13 +1,26 @@
 ################################################################################
 #
-# Substitutes the default user and group in the Ubuntu image with a new user.
+# Dockerfile for devlopment environment with Vim, Python, and Node.js and
+# nvidia and CUDA support.
 #
-# docker build --build-arg USERNAME=<user-name> -t <image-name> .
+# Assumes that the host system has NVIDIA drivers installed and the
+# NVIDIA Container Toolkit configured.
+#
+# sudo apt-get install -y nvidia-container-toolkit
+#
+# To run the docker container with GPU support, use the following command from
+# the command line of just run the compose:
+#
+# docker compose run dev
+# or
+# docker run --gpus all -it jpazarzis/jp-base:0.20
+#
 #
 ################################################################################
 
-FROM ubuntu:latest
+FROM nvidia/cuda:12.2.0-devel-ubuntu20.04
 
+ENV DEBIAN_FRONTEND=noninteractive
 ARG USERNAME=developer
 ARG USER_UID=1000
 ARG USER_GID=1000
